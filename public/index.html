@@ -5,12 +5,20 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+        <!-- 使用CDN的CSS文件 -->
+        <% for (var i in htmlWebpackPlugin.options.cdn &&
+        htmlWebpackPlugin.options.cdn.css) { %>
+        <link
+            href="<%= htmlWebpackPlugin.options.cdn.css[i] %>"
+            rel="stylesheet"
+        />
+        <% } %>
         <!-- iconfont -->
         <link
             rel="stylesheet"
-            href="//at.alicdn.com/t/font_1585062_c4v36t4by9.css"
+            href="//at.alicdn.com/t/font_1585062_oocqy7odhd.css"
         />
-        <title><%= htmlWebpackPlugin.options.title %></title>
+        <title>帆空间</title>
     </head>
     <body>
         <noscript>
@@ -21,6 +29,14 @@
             >
         </noscript>
         <div id="app"></div>
+
+        <!-- 使用CDN的JS文件 -->
+        <% for (var i in htmlWebpackPlugin.options.cdn &&
+        htmlWebpackPlugin.options.cdn.js) { %>
+        <script src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
+        <% } %>
+        <!-- 使用CDN的JS文件 -->
+
         <!-- built files will be auto injected -->
     </body>
 </html>
