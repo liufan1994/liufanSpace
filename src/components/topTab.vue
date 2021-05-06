@@ -19,6 +19,7 @@
 export default {
     name: 'topTab',
     props: {
+        // 是否触发动画
         isStyle: {
             type: Boolean,
             default: true,
@@ -28,22 +29,34 @@ export default {
         return {
             // tab 数据
             tabs: [
-                { name: '首页', tabShow: true },
-                { name: '文章', tabShow: false },
-                // { name: '最近更新', tabShow: false },
-                { name: '个人信息', tabShow: false },
+                { name: '首页', tabShow: true, url: '/' },
+                { name: '文章', tabShow: false, url: '/article' },
+                { name: '个人信息', tabShow: false, url: '/a' },
             ],
         }
     },
-    created() {
-        console.log('isStyle', this.isStyle)
+    watch: {
+        // 监听页面路由-使刷新后默认选中页面与路由显示页面一致
+        $route: {
+            handler(newVal) {
+                this.tabs.forEach((val) => {
+                    if (newVal.path === val.url) {
+                        val.tabShow = true
+                    } else {
+                        val.tabShow = false
+                    }
+                })
+            },
+        },
     },
+    created() {},
     methods: {
         // 点击tab
         tabFun(index) {
             this.tabs.map((val, index2) => {
                 if (index === index2) {
                     val.tabShow = true
+                    this.$router.push(val.url)
                 } else {
                     val.tabShow = false
                 }

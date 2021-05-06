@@ -57,7 +57,7 @@
                     </el-date-picker>
                 </div>
                 <!-- tab -->
-                <topTab class="topTab"></topTab>
+                <topTab></topTab>
             </div>
             <!-- 个人信息 -->
             <div class="individual">
@@ -72,10 +72,11 @@
         </div>
         <div class="topBottom" :class="{ topBottom2: isTab2 }">
             <div class="topBottomCon">
-                <div class="topBottomSort">所有分类</div>
+                <div class="topBottomSort" :class="{ topBottomSort2: isTab2 }">
+                    所有分类
+                </div>
                 <!-- tab -->
                 <topTab :isStyle="isTab2"></topTab>
-                <div class="topBottomSeat"></div>
             </div>
         </div>
     </div>
@@ -148,10 +149,12 @@ export default {
         }
     },
     mounted() {
+        // 监听事件
         window.addEventListener('scroll', this.handleScroll)
     },
     methods: {
         handleScroll() {
+            // 获取滚动条位置
             let scrollY = document.documentElement.scrollTop
             if (scrollY >= 14) {
                 this.isTab2 = true
@@ -457,10 +460,25 @@ export default {
         -webkit-animation: topBottom 0.5s; /* Safari 和 Chrome */
         -o-animation: topBottom 0.5s; /* Opera */
         .topBottomCon {
+            position: relative;
             width: 1200px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            @keyframes topBottomSort {
+                from {
+                    height: 0px;
+                    display: none;
+                }
+                to {
+                    height: 40px;
+                    display: block;
+                }
+            }
             .topBottomSort {
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: block;
                 width: 140px;
                 line-height: 40px;
                 text-align: center;
@@ -468,9 +486,28 @@ export default {
                 font-size: 16px;
                 color: #1f1f1f;
                 font-weight: bold;
+                animation: topBottom 0.5s;
+                -moz-animation: topBottom 0.5s; /* Firefox */
+                -webkit-animation: topBottom 0.5s; /* Safari 和 Chrome */
+                -o-animation: topBottom 0.5s; /* Opera */
             }
-            .topBottomSeat {
-                width: 140px;
+            @keyframes topBottomSort2 {
+                from {
+                    height: 40px;
+                    display: block;
+                }
+                to {
+                    height: 0px;
+                    display: none;
+                }
+            }
+            .topBottomSort2 {
+                display: none;
+                height: 0;
+                animation: topBottom2 0.5s;
+                -moz-animation: topBottom2 0.5s; /* Firefox */
+                -webkit-animation: topBottom2 0.5s; /* Safari 和 Chrome */
+                -o-animation: topBottom2 0.5s; /* Opera */
             }
         }
     }
